@@ -35,45 +35,45 @@ public class BookController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/delete-book")
-    public ResponseEntity<Void> deleteBook(@RequestBody BookDTO bookDTO) {
-        if(bookDTO == null) {
+    @PostMapping("/delete-book/{id}")
+    public ResponseEntity<Void> deleteBook(@PathVariable Long id) {
+        if(id == null) {
             return ResponseEntity.notFound().build();
         }
 
-        if(service.findById(bookDTO.getId()) == null) {
+        if(service.findById(id) == null) {
             return ResponseEntity.notFound().build();
         }
 
-        this.service.deleteById(bookDTO.getId());
+        this.service.deleteById(id);
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/edit-book")
-    public ResponseEntity<Void> editBook(@RequestBody BookDTO bookDTO) {
+    @PostMapping("/edit-book/{id}")
+    public ResponseEntity<Void> editBook(@PathVariable Long id, @RequestBody BookDTO bookDTO) {
         if(bookDTO == null) {
             return ResponseEntity.notFound().build();
         }
 
-        if(authorService.findById(bookDTO.getAuthorId()) == null || service.findById(bookDTO.getId()) == null) {
+        if(authorService.findById(bookDTO.getAuthorId()) == null || service.findById(id) == null) {
             return ResponseEntity.notFound().build();
         }
 
-        this.service.update(bookDTO.getId(), bookDTO.getName(), bookDTO.getCategory(), bookDTO.getAuthorId(), bookDTO.getAvailableCopies());
+        this.service.update(id, bookDTO.getName(), bookDTO.getCategory(), bookDTO.getAuthorId(), bookDTO.getAvailableCopies());
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/mark-book")
-    public ResponseEntity<Void> markBook(@RequestBody BookDTO bookDTO) {
-        if(bookDTO == null) {
+    @PostMapping("/mark-book/{id}")
+    public ResponseEntity<Void> markBook(@PathVariable Long id) {
+        if(id == null) {
             return ResponseEntity.notFound().build();
         }
 
-        if(service.findById(bookDTO.getId()) == null) {
+        if(service.findById(id) == null) {
             return ResponseEntity.notFound().build();
         }
 
-        this.service.mark(bookDTO.getId());
+        this.service.mark(id);
         return ResponseEntity.ok().build();
     }
 

@@ -16,5 +16,8 @@ public interface BookService {
     Book create(String name, Category category, Long authorId, Integer availableCopies);
     Book update(Long id, String name, Category category, Long authorId, Integer availableCopies);
     void mark(Long id);
+    void onBookCreated();
+    void onBookEdited();
+    void onBookDeleted();
 
 }

@@ -11,7 +11,7 @@ public class Author {
     Long id;
     String name;
     String surname;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     Country country;
 
     public Author() {}

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/books")
 public class BookController {
 
     private final BookService service;
@@ -77,10 +77,8 @@ public class BookController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/books")
-    public ResponseEntity<List<Book>> getBooks() {
-        var books = this.service.listAll();
-
-        return ResponseEntity.ok(books);
+    @GetMapping("")
+    public List<Book> getBooks() {
+        return this.service.listAll();
     }
 }

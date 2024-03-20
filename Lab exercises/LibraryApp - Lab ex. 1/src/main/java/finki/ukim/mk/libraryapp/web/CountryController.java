@@ -29,9 +29,7 @@ public class CountryController {
     }
 
     @GetMapping("/countries")
-    public ResponseEntity<List<Country>> getCountries() {
-        var countries = this.service.listAll();
-
-        return ResponseEntity.ok(countries);
+    public List<Country> getCountries() {
+        return this.service.listAll();
     }
 }

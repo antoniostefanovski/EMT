@@ -36,10 +36,18 @@ public class AuthorController {
     }
 
     @GetMapping("/authors")
-    public ResponseEntity<List<Author>> getAuthors() {
-        var authors = this.service.listAll();
+    public List<Author> getAuthors() {
+        return this.service.listAll();
+    }
 
-        return ResponseEntity.ok(authors);
+    @PostMapping("/delete-author/{id}")
+    public ResponseEntity<Void> getAuthors(@PathVariable Long id) {
+        if(id == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        this.service.deleteById(id);
+        return ResponseEntity.ok().build();
     }
 
 }

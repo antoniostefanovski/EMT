@@ -2,6 +2,8 @@ package finki.ukim.mk.libraryapp.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Data
 @Entity
@@ -12,10 +14,10 @@ public class Book {
     String name;
     @Enumerated(EnumType.STRING)
     Category category;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     Author author;
     Integer availableCopies;
-    Boolean isRented;
 
     public Book() {}
 
@@ -24,6 +26,5 @@ public class Book {
         this.category = category;
         this.author = author;
         this.availableCopies = availableCopies;
-        this.isRented = false;
     }
 }

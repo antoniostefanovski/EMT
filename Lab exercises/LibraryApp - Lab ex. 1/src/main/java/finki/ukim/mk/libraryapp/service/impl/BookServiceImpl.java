@@ -61,7 +61,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public void mark(Long id) {
         Book book = this.findById(id);
-        book.setIsRented(true);
+        book.setAvailableCopies(book.getAvailableCopies() - 1);
         bookRepository.save(book);
     }
 }

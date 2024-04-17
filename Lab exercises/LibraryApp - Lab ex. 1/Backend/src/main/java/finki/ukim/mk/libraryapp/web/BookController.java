@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
 @RequestMapping("/api/books")
 public class BookController {
 
@@ -78,7 +79,26 @@ public class BookController {
     }
 
     @GetMapping("")
-    public List<Book> getBooks() {
-        return this.service.listAll();
+    public List<Book> getBooks(@RequestParam(required = false) String name) {
+
+        if(name == null) {
+            return this.service.listAll();
+        }
+
+        return this.service.listBooks(name);
+    }
+
+    @GetMapping("/get-book/{id}")
+    public ResponseEntity<Book> getBook(@PathVariable Long id) {
+        if(id == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        var book = service.findById(id);
+        if(book == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(book);
     }
 }

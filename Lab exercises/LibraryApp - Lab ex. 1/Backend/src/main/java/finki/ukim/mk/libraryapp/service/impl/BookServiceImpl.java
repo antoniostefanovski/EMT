@@ -33,6 +33,11 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public List<Book> listBooks(String name) {
+        return this.bookRepository.getBooksByNameContains(name);
+    }
+
+    @Override
     public Book findById(Long id) {
         return bookRepository.findById(id).orElseThrow(BookNotFoundException::new);
     }

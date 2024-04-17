@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { HomeContainer } from "./home.styles"
+import { HomeContainer, InputButton, InputTerm, SearchBar } from "./home.styles"
 import { Book } from "../../models/Book";
 import { BookCategory } from "../../enums/BookCategory";
 import { BookList } from "../../components/book-list/book-list.component";
@@ -8,6 +8,7 @@ import { LibraryService } from "../../repository/LibraryService";
 export const Home = () => {
     const [books, setBooks] = useState<Book[]>([]);
     const [book, setBook] = useState<Book>({} as Book);
+    const [searchTerm, setSearchTerm] = useState("");
     const service = LibraryService;
 
     useEffect(() => {
@@ -16,7 +17,7 @@ export const Home = () => {
     }, []);
 
     const getData = async () => {
-        return service.fetchBooks()
+        return service.fetchBooks("")
                         .then((data) => setBooks(data.data));
     }
 
@@ -25,8 +26,17 @@ export const Home = () => {
         window.location.replace(`http://localhost:3000/edit-book/${id}`);
     }
 
+    const getMovie = async () => {
+        service.fetchBooks(searchTerm)
+                    .then((data) => setBooks(data.data));
+    }
+
     return (
         <HomeContainer>
+            <SearchBar>
+                <InputTerm type={"text"} placeholder={"Enter Book Name"} name={"searchterm"} onChange={(e) => setSearchTerm(e.target.value)}></InputTerm>
+                <InputButton onClick={getMovie}>Search</InputButton>
+            </SearchBar>
             <BookList 
                 books={books}
                 onDelete={(id) => service.deleteBook(id).then(() => getData())}

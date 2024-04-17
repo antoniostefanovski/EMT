@@ -11,6 +11,7 @@ import java.util.List;
 public interface BookService {
 
     List<Book> listAll();
+    List<Book> listBooks(String name);
     Book findById(Long id);
     void deleteById(Long id);
     Book create(String name, Category category, Long authorId, Integer availableCopies);

@@ -13,8 +13,8 @@ export const LibraryService = {
         return instance.get('/authors');
     },
 
-    fetchBooks: () => {
-        return instance.get('/books');
+    fetchBooks: (name: string) => {
+        return instance.get(`/books?name=${name}`);
     },
 
     deleteBook: (id: Number) => {
